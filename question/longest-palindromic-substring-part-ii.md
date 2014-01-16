@@ -3,30 +3,29 @@
 
 给定一个字符串S，找出S中最长的回文子字符串。
 
-注意：
+# 注意
 这是最长回文子字符串 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 的第二部。这里，我们要描述一个算法（Manacher算法），可以在线性时间内找出最长回文子字符串。请阅读第一部 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 了解更多的内幕（傲骄了）。
 
-Manacher
+Manacher http://en.wikipedia.org/wiki/Longest_palindromic_substring#CITEREFManacher1975
 ![ScreenShot](https://raw.github.com/xiangzhai/goaxel/master/image/ManG490.jpg)
 
+# 提示
+思考你会如何改进比O(N^2)更简单的方法。考虑最坏情况。最坏的情况是输入了多个盘根错节的回文。举个栗子，输入："aaaaaaaaa" 和 “cabcbabcbabcba”。事实上，我们应该利用回文的对称属性，减少一些不必要的计算量。
 
-Hint:
-Think how you would improve over the simpler O(N2) approach. Consider the worst case scenarios. The worst case scenarios are the inputs with multiple palindromes overlapping each other. For example, the inputs: “aaaaaaaaa” and “cabcbabcbabcba”. In fact, we could take advantage of the palindrome’s symmetric property and avoid some of the unnecessary computations.
+# 一个O(N)答案（Manacher算法）
+首先，我们在输入的字符串S的每个字符之间添加一个特殊字符'#'，转换成另一个字符串T。这样做的原因马上向你揭晓。
 
-An O(N) Solution (Manacher’s Algorithm):
-First, we transform the input string, S, to another string T by inserting a special character ‘#’ in between letters. The reason for doing so will be immediately clear to you soon.
+举个栗子 S = “abaaba” T = “#a#b#a#a#b#a#”
 
-For example: S = “abaaba”, T = “#a#b#a#a#b#a#”.
+为了寻找最长回文子字符串，我们需要扩展每个Ti比如Ti-d...Ti+d或者描述为以Ti为圆心，d为半径的圆，构成一个回文。你立马就发现d就是以Ti为圆心的回文长度。
 
-To find the longest palindromic substring, we need to expand around each Ti such that Ti-d … Ti+d forms a palindrome. You should immediately see that d is the length of the palindrome itself centered at Ti.
+我们把中间结果存到数组P中，那么P[i]就等于以Ti为圆心的回文长度。最长回文子字符串就是P中最大的元素。
 
-We store intermediate result in an array P, where P[ i ] equals to the length of the palindrome centers at Ti. The longest palindromic substring would then be the maximum element in P.
-
-Using the above example, we populate P as below (from left to right):
+使用上面的栗子，我们填充P如下所示（从左向右）：
 
 T = # a # b # a # a # b # a #
 P = 0 1 0 3 0 1 6 1 0 3 0 1 0
-Looking at P, we immediately see that the longest palindrome is “abaaba”, as indicated by P6 = 6.
+看P（傲骄了）我们立马找到最长回文是"abaaba"，如P6 = 6所示。
 
 Did you notice by inserting special characters (#) in between letters, both palindromes of odd and even lengths are handled graciously? (Please note: This is to demonstrate the idea more easily and is not necessarily needed to code the algorithm.)
 
