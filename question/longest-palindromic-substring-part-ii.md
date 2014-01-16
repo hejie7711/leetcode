@@ -3,12 +3,12 @@
 
 给定一个字符串S，找出S中最长的回文子字符串。
 
-Note:
-This is Part II of the article: Longest Palindromic Substring. Here, we describe an algorithm (Manacher’s algorithm) which finds the longest palindromic substring in linear time. Please read Part I for more background information.
 注意：
-这是最长回文子字符串 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 的第二部。
+这是最长回文子字符串 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 的第二部。这里，我们要描述一个算法（Manacher算法），可以在线性时间内找出最长回文子字符串。请阅读第一部 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 了解更多的内幕（傲骄了）。
 
-In my previous post we discussed a total of four different methods, among them there’s a pretty simple algorithm with O(N2) run time and constant space complexity. Here, we discuss an algorithm that runs in O(N) time and O(N) space, also known as Manacher’s algorithm.
+Manacher
+![ScreenShot](https://raw.github.com/xiangzhai/goaxel/master/image/ManG490.jpg)
+
 
 Hint:
 Think how you would improve over the simpler O(N2) approach. Consider the worst case scenarios. The worst case scenarios are the inputs with multiple palindromes overlapping each other. For example, the inputs: “aaaaaaaaa” and “cabcbabcbabcba”. In fact, we could take advantage of the palindrome’s symmetric property and avoid some of the unnecessary computations.
@@ -62,56 +62,7 @@ The final part is to determine when should we move the position of C together wi
 If the palindrome centered at i does expand past R, we update C to i, (the center of this new palindrome), and extend R to the new palindrome’s right edge.
 In each step, there are two possibilities. If P[ i ] ≤ R – i, we set P[ i ] to P[ i' ] which takes exactly one step. Otherwise we attempt to change the palindrome’s center to i by expanding it starting at the right edge, R. Extending R (the inner while loop) takes at most a total of N steps, and positioning and testing each centers take a total of N steps too. Therefore, this algorithm guarantees to finish in at most 2*N steps, giving a linear time solution.
 
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
+```
 // Transform S into T.
 // For example, S = "abba", T = "^#a#b#b#a#$".
 // ^ and $ signs are sentinels appended to each end to avoid bounds checking
@@ -161,6 +112,8 @@ string longestPalindrome(string s) {
   
   return s.substr((centerIndex - 1 - maxLen)/2, maxLen);
 }
+```
+
 Note:
 This algorithm is definitely non-trivial and you won’t be expected to come up with such algorithm during an interview setting. However, I do hope that you enjoy reading this article and hopefully it helps you in understanding this interesting algorithm. You deserve a pat if you have gone this far! :)
 
