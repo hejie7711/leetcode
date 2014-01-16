@@ -6,6 +6,7 @@ permalink: /longest-palindromic-substring-part-ii/
 ---
 
 Given a string S, find the longest palindromic substring in S.
+一个字符串S，找出S中最长的回文子字符串。
 
 Note:
 This is Part II of the article: Longest Palindromic Substring. Here, we describe an algorithm (Manacher’s algorithm) which finds the longest palindromic substring in linear time. Please read Part I for more background information.
