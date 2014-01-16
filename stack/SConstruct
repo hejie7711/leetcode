@@ -1,4 +1,0 @@
-env = Environment(CCFLAGS='-g')
-
-env.Program('cstack.c')
-env.Program('stack.cpp')
