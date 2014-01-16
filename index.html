@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode中文</title>
+  <title>Releases</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml" />
   <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/mojombo/jekyll/commits/master.atom" />
@@ -21,7 +21,7 @@
   <header>
   <nav class="mobile-nav show-on-mobiles">
     <ul>
-  <li class="current">
+  <li class="">
   <a href="/">首页</a>
   </li>
   <li class="">
@@ -30,7 +30,7 @@
   <li class="">            
   <a href="/docs/home">文档</a>                              
   </li>
-  <li class="">
+  <li class="current">
   <a href="/news">新闻</a>
   </li>
   <li class="">
@@ -42,15 +42,12 @@
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <h1>
-        <a href="/">
-          <span>LeetCode中文</span>
-          <img src="/img/logo-2x.png" width="300px" height="63px" alt="">
-        </a>
+        <a href="/">LeetCode中文</a>
       </h1>
     </div>
     <nav class="main-nav unit two-thirds hide-on-mobiles">
       <ul>
-  <li class="current">
+  <li class="">
   <a href="/">首页</a>
   </li>
   <li class="">
@@ -59,7 +56,7 @@
   <li class="">            
   <a href="/docs/home">文档</a>                              
   </li>
-  <li class="">
+  <li class="current">
   <a href="/news">新闻</a>
   </li>
   <li class="">
@@ -72,47 +69,78 @@
 </header>
 
 
-  <section class="features">
-  <div class="grid">
-    <div class="unit half">
-      <h2>红宝书</h2>
-      <p>为了去美国读研考GRE、TOEFL的都背过红宝书；想获得美国工作机会的差不多都做过<a href="http://www.leetcode.com" target="_blank">LeetCode题库</a></p>
-    </div>
-    <div class="unit half">
-      <h2>奇葩</h2>
-      <p>不收录<a href="http://en.wikipedia.org/wiki/Sizeof" target="_blank">sizeof</a>、字节对齐、默写<a href="http://www.sgi.com/tech/stl/" target="_blank">C++ STL模板</a>等死记硬背的题目，这里的题目很伤脑筋并且Google不到标准答案</p>
-    </div>
-    <div class="clear"></div>
+    <section class="news">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">题库</option>
+    <option value="/news/">新闻</option>
+    <optgroup label="v1.x">
+      
+      <option value="/news/2013/08/13/leetcode-cn-launched">LeetCode中文alpha发布</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit four-fifths">
+        <article>
+  <h2>
+    <a href='/news/2013/08/13/leetcode-cn-launched'>
+      LeetCode中文alpha发布
+    </a>
+  </h2>
+  <span class='post-category'>
+    
+    <span class='label'>release</span>
+    
+  </span>
+  <div class='post-meta'>
+    <span class='post-date'>
+      13 Aug 2013
+    </span>
+    <a class='post-author' href='https://github.com/xiangzhai'>
+      <img class='avatar' src='https://github.com/xiangzhai.png' />
+      xiangzhai
+    </a>
   </div>
-</section>
-<section class="quickstart">
-  <div class="grid">
-    <div class="unit golden-small center-on-mobiles">
-      <h4>每天或每周或每月一题</h4>
-    </div>
-    <div class="unit golden-large code">
-      <p class="title">快速上手</p>
-      <div class="shell">
-        <p class="line">
-          <span class="path">~</span>
-          <span class="prompt">$</span>
-          <span class="command">下载安装<a href="http://www.linuxdeepin.com" target="_blank">Linux Deepin</a></span>
-        </p>
-        <p class="line">
-          <span class="path">~</span>
-          <span class="prompt">$</span>
-          <span class="command">sudo apt-get install git scons</span>
-        </p>
-        <p class="line">
-          <span class="path">~</span>
-          <span class="prompt">$</span>
-          <span class="command">用<a href="http://www.scons.org" target="_blank">scons</a>编译源代码</span>
-        </p>
+  <p class='post-content'>
+    <p>LeetCode中文alpha发布 ^_^</p>
+  </p>
+</article>
       </div>
+
+      <div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    <ul>
+      <li class="">
+        <a href="/news/">All News</a>
+      </li>
+      <li class="current">
+        <a href="/news/releases/">LeetCode Releases</a>
+      </li>
+    </ul>
+    <h4>Recent Releases</h4>
+    <ul>
+      
+      <li class="">
+        <a href="/news/2013/08/13/leetcode-cn-launched">Version </a>
+      </li>
+      
+      <li>
+        <a href="/docs/history/">History »</a>
+      </li>
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
     </div>
-    <div class="clear"></div>
-  </div>
-</section>
+  </section>
 
 
   <footer>
