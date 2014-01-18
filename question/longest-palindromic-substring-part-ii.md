@@ -1,40 +1,45 @@
-最长回文子字符串 第二部
-=======================
+# 最长回文子字符串 第二部
 
-给定一个字符串S，找出S中最长的回文子字符串。
+> 给定一个字符串S，找出S中最长的回文子字符串。
 
-# 注意
-这是最长回文子字符串 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 的第二部。这里，我们要描述一个算法（Manacher算法），可以在线性时间内找出最长回文子字符串。请阅读第一部 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 了解更多的内幕（傲骄了）。
+## 注意
+这是[最长回文子字符串]: http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 的第二部。这里，我们要描述Manacher算法，可以在线性时间内找出最长回文子字符串。请阅读[第一部]: http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 了解更多的内幕。
 
-Manacher http://en.wikipedia.org/wiki/Longest_palindromic_substring#CITEREFManacher1975
-![ScreenShot](https://raw.github.com/xiangzhai/goaxel/master/image/ManG490.jpg)
+[Manacher]: http://en.wikipedia.org/wiki/Longest_palindromic_substring#CITEREFManacher1975
 
-# 提示
-思考你会如何改进比O(N^2)更简单的方法。考虑最坏情况。最坏的情况是输入了多个盘根错节的回文。举个栗子，输入："aaaaaaaaa" 和 “cabcbabcbabcba”。事实上，我们应该利用回文的对称属性，减少一些不必要的计算量。
+![ScreenShot](https://raw.github.com/xiangzhai/leetcode/master/image/ManG490.jpg)
 
-# 一个O(N)答案（Manacher算法）
-首先，我们在输入的字符串S的每个字符之间添加一个特殊字符'#'，转换成另一个字符串T。这样做的原因马上向你揭晓。
+## 提示
+思考如何改进比O(N^2)复杂度更简单的算法。考虑最坏情况。最坏的情况是输入了多个盘根错节的回文。举个例子，输入："aaaaaaaaa" 和 “cabcbabcbabcba”。事实上，我们应该利用回文的对称属性，减少一些不必要的计算量。
 
-举个栗子 S = “abaaba” T = “#a#b#a#a#b#a#”
+## 一个O(N)复杂度答案（Manacher算法）
+首先，我们在输入的字符串S的每个字符之间添加一个特殊字符'#'，转换成另一个字符串T。这样做的原因马上揭晓。
 
-为了寻找最长回文子字符串，我们需要扩展每个Ti比如Ti-d...Ti+d或者描述为以Ti为圆心，d为半径的圆，构成一个回文。你立马就发现d就是以Ti为圆心的回文长度。
+举个例子 S = “abaaba” T = “#a#b#a#a#b#a#”
+
+为了寻找最长回文子字符串，我们需要扩展Ti，比如Ti - d...Ti + d，以Ti为圆心，d为半径的圆，构成一个回文。d就是以Ti为圆心的回文长度。
 
 我们把中间结果存到数组P中，那么P[i]就等于以Ti为圆心的回文长度。最长回文子字符串就是P中最大的元素。
 
-使用上面的栗子，我们填充P如下所示（从左向右）：
+使用上面的例子，我们填充P如下所示（从左向右）：
 
+```
 T = # a # b # a # a # b # a #
 P = 0 1 0 3 0 1 6 1 0 3 0 1 0
-看P（傲骄了）我们立马找到最长回文是"abaaba"，如P6 = 6所示。
+```
 
-Did you notice by inserting special characters (#) in between letters, both palindromes of odd and even lengths are handled graciously? (Please note: This is to demonstrate the idea more easily and is not necessarily needed to code the algorithm.)
+看P我们立马找到最长回文是"abaaba"，如P6 = 6所示。
 
-Now, imagine that you draw an imaginary vertical line at the center of the palindrome “abaaba”. Did you notice the numbers in P are symmetric around this center? That’s not only it, try another palindrome “aba”, the numbers also reflect similar symmetric property. Is this a coincidence? The answer is yes and no. This is only true subjected to a condition, but anyway, we have great progress, since we can eliminate recomputing part of P[ i ]‘s.
+在字母之间插入特殊字符#，可以优雅地处理奇数、偶数长度的回文。（请注意：这是为了更方便地论证解题思路，不需要码代码。）
 
-Let us move on to a slightly more sophisticated example with more some overlapping palindromes, where S = “babcbabcbaccba”.
+现在，想像一下在回文"abaaba"的中间画一条竖线。数组P中的数字是中心轴对称的。再试另一个回文"aba"，数组中的数字依旧具有相似的轴对称属性。这是巧合吗？在某一特定条件下是这样的，但是，无论如何，我们没有重复计算P[i]，这就是个进步。
 
+让我们看一个稍微有点复杂的例子，有很多盘根错节的回文，比如S = "babcbabcbaccba"。
 
-Above image shows T transformed from S = “babcbabcbaccba”. Assumed that you reached a state where table P is partially completed. The solid vertical line indicates the center (C) of the palindrome “abcbabcba”. The two dotted vertical line indicate its left (L) and right (R) edges respectively. You are at index i and its mirrored index around C is i’. How would you calculate P[ i ] efficiently?
+![ScreenShot](https://raw.github.com/xiangzhai/leetcode/master/image/palindrome_table10.png) 
+
+上面图片的T由S = "babcbabcbaccba"转换而来。假设你单步调试到数组P部分形成的状态（比如P[i] < P[N]）。竖实线是回文"babcbabcbaccba"的圆心C。两个竖虚线是左L右R边界。你单步调试到索引i轴对称的i’。怎样才能高效地计算P[i]呢？
+
 Assume that we have arrived at index i = 13, and we need to calculate P[ 13 ] (indicated by the question mark ?). We first look at its mirrored index i’ around the palindrome’s center C, which is index i’ = 9.
 
 
