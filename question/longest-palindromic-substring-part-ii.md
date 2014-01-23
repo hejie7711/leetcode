@@ -78,7 +78,8 @@ else P[ i ] ≥ P[ i' ] 这里我们需要扩展右边R来找到P[i]
 // 将S转换成T
 // 比如，S = "abba", T = "^#a#b#b#a#$"
 // ^和$符号用来表示开始和结束。 
-string preProcess(string s) {
+string preProcess(string s) 
+{
     int n = s.length();
     if (n == 0) return "^$";
     string ret = "^";
@@ -89,7 +90,8 @@ string preProcess(string s) {
     return ret;
 }
  
-string longestPalindrome(string s) {
+string longestPalindrome(string s) 
+{
     string T = preProcess(s);
     int n = T.length();
     int* P = new int[n];
@@ -125,14 +127,14 @@ string longestPalindrome(string s) {
 }
 ```
 
-注意：
+## 注意
 该算法是不凡的，在面试过程中，你可能想不起来该算法。但是，我希望你喜欢阅读这篇文章，有助于理解这个有趣的算法。
 
-进一步思考：
+## 进一步思考
 事实上，针对该题还有第六种解法——使用后缀树。但是，它并不高效O(N log N)，而且构造后缀树的开销也很大，实践起来也更加复杂。如果你感兴趣，可以阅读维基百科有关最长回文子字符串的文章。
 如果让你找出最长回文序列？（你知道子字符串和序列的区别吗？）
 
-有用的链接：
+## 有用的链接
 * Manacher算法O(N)求字符串的最长回文子串 http://www.felix021.com/blog/read.php?2040
 * [需要翻墙]一个简单的找最长回文子字符串的线性时间复杂度算法 http://zhuhongcheng.wordpress.com/2009/08/02/a-simple-linear-time-algorithm-for-finding-longest-palindrome-sub-string/
 * [需要翻墙]寻找回文 http://johanjeuring.blogspot.com/2007/08/finding-palindromes.html
