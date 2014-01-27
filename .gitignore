@@ -17,3 +17,7 @@
 *.exe
 *.out
 *.app
+
+# ignore intelliJ files
+*.iml
+.idea
