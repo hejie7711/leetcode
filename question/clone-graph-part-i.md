@@ -1,5 +1,7 @@
 # 克隆图 第一部
 
+http://leetcode.com/2012/05/clone-graph-part-i.html
+
 > 克隆一个图。输入的是一个节点指针。返回的是克隆图的节点指针。
 
 一个图定义如下：

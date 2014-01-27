@@ -1,5 +1,7 @@
 # 最长回文子字符串 第二部
 
+http://leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
+
 > 给定一个字符串S，找出S中最长的回文子字符串。
 
 ## 注意
