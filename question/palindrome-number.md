@@ -2,75 +2,83 @@
 
 http://leetcode.com/2012/01/palindrome-number.html
 
-> 确定一个整型是否是回文。不能使用额外的空间。
+> 确定一个整数是否是回文。不能使用额外的空间。
 
-在之前的题目中（最长回文子字符串 第一部 第）
-In previous posts (Longest Palindromic Substring Part I, Part II) we have discussed multiple approaches on finding the longest palindrome in a string. In this post we discuss ways to determine whether an integer is a palindrome. Sounds easy?
+在之前的题目中（最长回文子字符串 第一部 第二部）我们讨论过在字符串中寻找最长回文的多种解法。在这道题里，我们讨论确定一个整数是否是回文。听起来容易？
 
-Hint:
-Don’t be deceived by this problem which seemed easy to solve. Also note the restriction of doing it without extra space. Think of a generic solution that is not language/platform specific. Also, consider cases where your solution might go wrong.
+## 提示
+不要被忽悠了该题不容易解。还要注意约束条件不能使用额外空间。考虑通用的解法任何语言/平台都支持。也考虑什么情况下你的解法可能出错。
 
-Solution:
-First, the problem statement did not specify if negative integers qualify as palindromes. Does negative integer such as -1 qualify as a palindrome? Finding out the full requirements of a problem before coding is what every programmer must do. For the purpose of discussion here, we define negative integers as non-palindromes.
+## 解法
+首先，该题没有描述清楚负数是否属于回文。比如负数-1是否是回文？每个程序员必须在码代码之前弄清楚该题的所有需求。我们在这里讨论的，定义负数不是回文。
 
-The most intuitive approach is to first represent the integer as a string, since it is more convenient to manipulate. Although this certainly does work, it violates the restriction of not using extra space. (ie, you have to allocate n characters to store the reversed integer as string, where n is the maximum number of digits). I know, this sound like an unreasonable requirement (since it uses so little space), but don’t most interview problems have such requirements?
+最直观的解法是首先将整数转换成字符串，那样就更加容易操作。虽然这种解法可以工作，但是它违反了不能使用额外空间的约束。（比如，你需要申请n个字符空间来存储反转后的整数字符串，n是整数的最大位数）我知道，这听上去是不合理的需求（尽管它只使用了很少的空间），但是大多数面试题都会有如此需求吧？
 
-Another approach is to first reverse the number. If the number is the same as its reversed, then it must be a palindrome. You could reverse a number by doing the following:
-
-```
-int reverse(int num) {
-  assert(num >= 0);   // for non-negative integers only.
-  int rev = 0;
-  while (num != 0) {
-    rev = rev * 10 + num % 10;
-    num /= 10;
-  }
-  return rev;
-}
-```
-This seemed to work too, but did you consider the possibility that the reversed number might overflow? If it overflows, the behavior is language specific (For Java the number wraps around on overflow, but in C/C++ its behavior is undefined). Yuck.
-
-Of course, we could avoid overflow by storing and returning a type that has larger size than int (ie, long long). However, do note that this is language specific, and the larger type might not always be available on all languages.
-
-We could construct a better and more generic solution. One pointer is that, we must start comparing the digits somewhere. And you know there could only be two ways, either expand from the middle or compare from the two ends.
-
-It turns out that comparing from the two ends is easier. First, compare the first and last digit. If they are not the same, it must not be a palindrome. If they are the same, chop off one digit from both ends and continue until you have no digits left, which you conclude that it must be a palindrome.
-
-Now, getting and chopping the last digit is easy. However, getting and chopping the first digit in a generic way requires some thought. I will leave this to you as an exercise. Please think your solution out before you peek on the solution below.
+另一个解法是首先反转整数。如果原始整数等于反转后的整数，那么它肯定是回文。你可以反转整数如下所示：
 
 ```
-bool isPalindrome(int x) {
-  if (x < 0) return false;
-  int div = 1;
-  while (x / div >= 10) {
-    div *= 10;
-  }        
-  while (x != 0) {
-    int l = x / div;
-    int r = x % 10;
-    if (l != r) return false;
-    x = (x % div) / 10;
-    div /= 100;
-  }
-  return true;
+int reverse(int num) 
+{
+    assert(num >= 0);   // 只考虑正整数
+    int rev = 0;
+    while (num != 0) {
+        rev = rev * 10 + num % 10;
+        num /= 10;
+    }
+    return rev;
 }
 ```
 
-Alternative Solution:
-Credits go to Dev who suggested a recursive solution (if extra stack space does not count as extra space), which is pretty neat too.
+这个看上去也能工作，但是你考虑到反转整数有可能溢出吗？如果溢出了，取决于编程语言（Java封装了溢出，但是C/C++就会段错误）。讨厌！
+
+当然，我们可以返回比int（比如long long）存储空间更大的类型来防止溢出。但是，注意这也取决于编程语言，不是所有的编程语言都支持大数据类型。
+
+我们可以构造一个更好的更加通用的解法。关键在于，我们必须按位比较。而且你知道只有两种方法，从中间开始或从两端开始比较。
+
+从两端开始比较比较简单。首先，按位比较第一个和最后一个。如果它们不相等，它就不是回文。如果相等，从两端各砍掉一位，继续比较，直到按位比较完所有的数，你就可以得出结论它是回文。
+
+获取、砍掉最后一位很简单。但是，如何使用通用方法砍掉第一位。我把这个问题留给你做个练习。请先思考你的解法，在偷看下面的。
 
 ```
-bool isPalindrome(int x, int &y) {
-  if (x < 0) return false;
-  if (x == 0) return true;
-  if (isPalindrome(x/10, y) && (x%10 == y%10)) {
-    y /= 10;
+bool isPalindrome(int x) 
+{
+    if (x < 0) 
+        return false;
+    int div = 1;
+    while (x / div >= 10) 
+        div *= 10;    
+    while (x != 0) {
+        int l = x / div;
+        int r = x % 10;
+        if (l != r) 
+            return false;
+        x = (x % div) / 10;
+        div /= 100;
+    }
     return true;
-  } else {
-    return false;
-  }
 }
-bool isPalindrome(int x) {
-  return isPalindrome(x, x);
+```
+
+## 另一种解法
+递归解法（如果额外的栈空间不算额外空间）非常简洁。
+
+```
+bool isPalindrome(int x, int &y) 
+{
+    if (x < 0) 
+        return false;
+    if (x == 0) 
+        return true;
+    if (isPalindrome(x / 10, y) && (x % 10 == y % 10)) {
+        y /= 10;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool isPalindrome(int x) 
+{
+    return isPalindrome(x, x);
 }
 ```
