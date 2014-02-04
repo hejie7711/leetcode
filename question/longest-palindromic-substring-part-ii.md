@@ -5,7 +5,7 @@ http://leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
 > 给定一个字符串S，找出S中最长的回文子字符串。
 
 ## 注意
-这是最长回文子字符串 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 的第二部。这里，我们要描述Manacher算法，可以在线性时间内找出最长回文子字符串。请阅读第一部 http://leetcode.com/2011/11/longest-palindromic-substring-part-i.html 了解更多内幕。
+这是最长回文子字符串 https://github.com/xiangzhai/leetcode/blob/master/question/longest-palindromic-substring-part-i.md 的第二部。这里，我们要描述Manacher算法，可以在线性时间内找出最长回文子字符串。请阅读第一部 https://github.com/xiangzhai/leetcode/blob/master/question/longest-palindromic-substring-part-i.md 了解更多内幕。
 
 Manacher http://en.wikipedia.org/wiki/Longest_palindromic_substring#CITEREFManacher1975
 
