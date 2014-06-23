@@ -32,4 +32,4 @@ Google HR的邮件要回复！
 
 ### 刷LeetCode题目
 
-可以先参考http://www.leetcode.cn做题的进度，做好准备刷2～3年题的心理准备！
+可以先参考 http://leetcode.cn 做题的进度，做好准备刷2～3年题的心理准备！

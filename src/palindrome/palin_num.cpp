@@ -1,3 +1,5 @@
+// Copyright (C) 2013 ~ 2014 Leslie Zhai <xiangzhai83@gmail.com>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
