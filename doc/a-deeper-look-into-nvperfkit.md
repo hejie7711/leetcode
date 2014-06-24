@@ -2,7 +2,10 @@ NVPerfKit值得深入
 
 > 原文链接 http://hakzsam.wordpress.com/2014/06/20/a-deeper-look-into-nvperfkit/
 
-NVIDIA NVPerfKit is a suite of performance tools to help developpers in identifying the performance bottleneck of OpenGL and Direct3D applications. It allows you to monitor hardware performance counters which are used to store the counts of hardware-related activities from the GPU itself. These performance counters (called “graphics counters” by NVIDIA) are usually used by developers to identify bottlenecks in their applications, like “how the gpu is busy?” or “how many triangles have been drawn in the current frame?” and so on. But, NVPerfKit is only available on Windows.
+NVIDIA NVPerfKit可以帮助开发者发现OpenGL和Direct3D应用程序中的性能瓶颈。你可以
+监视硬件性能计数器，记录GPU硬件相关的活动次数。开发者使用性能计数器（NVIDIA称之
+为“图形计数器”）发现应用程序的瓶颈，比如“gpu有多忙？”或者“当前帧已经绘制了多少
+个三角形？”但是，NVPerfKit只有Windows版。
 
 This year, my Google Summer of Code project is to expose NVIDIA’s graphics counter to help Linux/Nouveau developpers in improving their OpenGL applications. At the end of this summer, this project aims to offer a Linux version of NVPerfkit for NVIDIA’s graphics cards (only GeForce 8, 9 and 2XX in a first time) .  To expose these hardware events to the userspace, we have to write an interface between the Linux kernel and mesa. Basically, the idea is to tell to the kernel to monitor signal X and read back results from the userspace (i.e. mesa). However, before writing that interface we have to study the behaviours of NVPerfKit on Windows.
 
