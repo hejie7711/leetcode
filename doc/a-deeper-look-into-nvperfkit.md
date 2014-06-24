@@ -7,9 +7,20 @@ NVIDIA NVPerfKit可以帮助开发者发现OpenGL和Direct3D应用程序中的�
 为“图形计数器”）发现应用程序的瓶颈，比如“gpu有多忙？”或者“当前帧已经绘制了多少
 个三角形？”但是，NVPerfKit只有Windows版。
 
-This year, my Google Summer of Code project is to expose NVIDIA’s graphics counter to help Linux/Nouveau developpers in improving their OpenGL applications. At the end of this summer, this project aims to offer a Linux version of NVPerfkit for NVIDIA’s graphics cards (only GeForce 8, 9 and 2XX in a first time) .  To expose these hardware events to the userspace, we have to write an interface between the Linux kernel and mesa. Basically, the idea is to tell to the kernel to monitor signal X and read back results from the userspace (i.e. mesa). However, before writing that interface we have to study the behaviours of NVPerfKit on Windows.
+今年Samuel的Google夏季编程项目要揭开NVIDIA的图形计数器的面纱，帮助Linux/Nouveau
+开发者改进OpenGL应用程序。到暑期结束，该项目旨在提供NVIDIA显卡（只支持GeForce 
+8、9和2XX先）Linux版的NVPerfKit。把硬件事件映射到用户态，我们必须在Linux内核和
+mesa直接写接口。基本思路就是告诉内核去监视信号X，读用户态（例如mesa）返回的结果。
+但是，在写该接口之前，我们需要学习一下Windows版NVPerfKit。
 
-In a first time, let me explain (again) what is really a hardware performance counter. A hardware performance counter is a set of special registers used to count hardware-relatd activities. There are two type of counters, global counters from PCOUNTER and (local) MP counters. PCOUNTER is the card unit which contains most of the performance counters. PCOUNTER is divided in 8 domains (or sets) on nv50/Tesla. Each domain has a different source clock and has 255+ input signals that can themselves be the output of one multiplexer. PCOUNTER uses global counters whereas MP counters are per-app and context switched. Actually, these two types of counters are not really independent and may share some configuration parts, for example, the output of a signal multiplexer. On Tesla/nv50, it is possible to monitor 4 macro signals concurrently per domain. A macro signal is the aggregation of 4 signals which have been combined with a function. In this post, we are only focusing on global counters. Now, the question is how NVPerfKit monitors these global performance counters ?
+首先，让我（再）解释什么是硬件性能计数器。一个硬件性能计数器是一组特殊的寄存器，
+用来统计硬件相关的活动次数。有两种计数器，PCOUNTER全局计数器和（本地）MP计数器。
+PCOUNTER包含了绝大多数的性能计数器。PCOUNTER在nv50/Tesla被划分为8个域（集）。每
+个域有不同的时钟、255+输入信号可以多路输出复用。PCOUNTER使用全局计数器，而MP
+计数器是单应用的、上下文切换的。实际上，这两种计数器不是独立的，可能共享某些
+组态，比如，信号多路输出复用。Tesla/nv50有可能同时监视4个宏信号/域。1个宏信号
+是4个信号的聚合，组合成了1个函数。我们只关注全局计数器。那么NVPerfKit是如何监视
+这些全局性能计数器的呢？
 
 Case #1 : How NVPerfKit handles multiple apps being monitored concurrently ?
 
