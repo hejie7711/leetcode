@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <regex.h>
+#include <assert.h>
 
 typedef enum {
     FALSE, 
@@ -23,15 +24,36 @@ BOOL isMatch(const char *s, const char *p)
         regfree(&r); 
         return FALSE;
     }
-    printf("DEBUG: Mr. Match\n");
+    printf("DEBUG: Mr. Match!\n");
     regfree(&r);
     return TRUE;
 }
 
-BOOL LeslieMatch(const char *s, const char *p) { return TRUE; }
+BOOL LeslieMatch(const char *s, const char *p) 
+{
+    assert(s && p);
+    if (*p == '\0') return *s == '\0';
+    /* 假设p是.b 那么s最好是ab */
+    if (*(p + 1) != '*') {
+        assert(*p != '*');
+        return ((*p == *s) || (*p == '.' && *s != '\0')) && LeslieMatch(s + 1, p + 1);
+    }
+    /* 假设p是.* */
+    while ((*p == *s) || (*p == '.' && *s != '\0')) {
+        if (LeslieMatch(s, p + 2)) return TRUE;
+        s++;
+    }
+    return LeslieMatch(s, p + 2);
+}
 
 int main(int argc, char *argv[]) 
 {
-    isMatch("aa", ".*");
+    printf("DEBUG: %d\n", isMatch("aa", "a"));
+    printf("DEBUG: %d\n", isMatch("aa", "aa"));
+    printf("DEBUG: %d\n", isMatch("aaa", "aa"));
+    printf("DEBUG: %d\n", isMatch("aa", "a*"));
+    printf("DEBUG: %d\n", isMatch("aa", ".*"));
+    printf("DEBUG: %d\n", isMatch("ab", ".*"));
+    printf("DEBUG: %d\n", LeslieMatch("aa", ".*"));
     return 0;
 }
