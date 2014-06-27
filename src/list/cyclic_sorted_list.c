@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 ~ 2014 Leslie Zhai <xiangzhai83@gmail.com> */
+/* Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn> */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,6 +12,7 @@ typedef struct node_s {
 typedef struct {
     int     size;
     node_t *head;
+    node_t *tail;
 } linked_list_t;
 
 linked_list_t *NewLinkedList() 
@@ -20,7 +21,7 @@ linked_list_t *NewLinkedList()
     ret = malloc(sizeof(linked_list_t));
     assert(ret != NULL);
     ret->size = 0;
-    ret->head = NULL;
+    ret->tail = ret->head = NULL;
     return ret;
 }
 
@@ -29,11 +30,17 @@ void InsertItem(linked_list_t *this, void *item)
     assert(this != NULL);
     assert(item != NULL);
     node_t *n = malloc(sizeof(node_t));
+    node_t *t = NULL;
     assert(n != NULL);
     n->item = item;
     n->next = this->head;
     this->size++;
     this->head = n;
+    t = this->head;
+    while (t != NULL) {
+        t = t->next;
+    }
+    this->tail = t;
 }
 
 void DeleteItem(linked_list_t *this, void *item) 
