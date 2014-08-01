@@ -4,11 +4,15 @@ CPPPATH=
 LIBPATH=
 LIBS=
 
-all: strtok
+all: strtok strcpy
 
 strtok:
 	$(CC) -o strtok.o -c $(CFLAGS) $(CPPPATH) strtok.c
 	$(CC) -o strtok strtok.o $(LIBPATH) $(LIBS)
 
+strcpy:
+	$(CC) -o strcpy.o -c $(CFLAGS) $(CPPPATH) strcpy.c
+	$(CC) -o strcpy strcpy.o $(LIBPATH) $(LIBS)
+
 clean: 
-	rm -rf *.o strtok
+	rm -rf *.o strtok strcpy
