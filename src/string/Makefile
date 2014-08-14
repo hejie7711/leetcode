@@ -4,7 +4,7 @@ CPPPATH=
 LIBPATH=
 LIBS=
 
-all: strtok strcpy
+all: strtok strcpy align
 
 strtok:
 	$(CC) -o strtok.o -c $(CFLAGS) $(CPPPATH) strtok.c
@@ -14,5 +14,9 @@ strcpy:
 	$(CC) -o strcpy.o -c $(CFLAGS) $(CPPPATH) strcpy.c
 	$(CC) -o strcpy strcpy.o $(LIBPATH) $(LIBS)
 
+align:
+	$(CC) -o align.o -c $(CFLAGS) $(CPPPATH) align.c
+	$(CC) -o align align.o $(LIBPATH) $(LIBS)
+
 clean: 
-	rm -rf *.o strtok strcpy
+	rm -rf *.o strtok strcpy align

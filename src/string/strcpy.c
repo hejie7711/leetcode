@@ -7,7 +7,7 @@
 
 char* LeslieStrcpy(char* dest, char* src) 
 {
-    while (*dest++ = *src++);
+    while ((*dest++ = *src++) != '\0');
 
     return dest;
 }
