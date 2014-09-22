@@ -1,0 +1,21 @@
+class Solution {
+public:
+  int sqrt(int x) {
+    if(x == 1)
+      return 1;
+    int MAX = 46340;
+    int middle, start = 0, end = x;
+    while(start<=end){
+      middle = min(MAX, start+(end-start)/2);
+      long long tp1 = middle*middle;
+      long long tp2 = tp1+2*middle+1;
+      if(tp1<=x&&tp2>x)
+        return middle;
+      if(tp1>x)
+        end = middle-1;
+      else
+        start = middle+1;
+    }
+    return 0;
+  }
+};
