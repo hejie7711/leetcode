@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+
+int sqrtx(int x)
+{
+	int middle,start = 0,end = x;
+	long long tp1,tp2;
+	if(x == 1)
+	{
+		return 1;
+	}
+	while(start <= end)
+	{
+		middle = start + (end - start)/2;
+		tp1 = middle * middle;
+		tp2 = tp1 + 2*middle +1;
+		if(tp1 <= x && tp2 > x)
+			return middle;
+		else if(tp1 > x)
+			end = middle - 1;
+		else start = middle +1;
+
+	}
+}
+void doit()
+{
+	int x;
+	int result=0;
+	scanf("%d",&x);
+
+	result = sqrtx(x);
+	printf("%d\n",result);
+}
+void main()
+{
+	doit();
+
+}
